@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+	<AddIn Type="Command">
+		<Assembly>"C:\Doc\RevitApi\RevitAPITraining_SheetsCreator.dll"</Assembly>
+		<AddInId>8CBE0872-E7E7-46AD-BB18-9051DD0D97F0</AddInId>
+		<FullClassName>RevitAPITraining_SheetsCreator.Main</FullClassName>
+		<VendorId>bdvbuild</VendorId>
+		<Text>7 Создание листов</Text>
+	</AddIn>
+</RevitAddIns>
