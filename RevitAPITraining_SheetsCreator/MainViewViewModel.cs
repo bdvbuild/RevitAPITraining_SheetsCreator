@@ -19,7 +19,7 @@ namespace RevitAPITraining_SheetsCreator
         public FamilySymbol SelectedTitleBlockType { get; set; }
         public int SheetsCount { get; set; }
         public List<View> Views { get; } = new List<View>();
-        public ViewSheet SelectedView { get; set; }
+        public View SelectedView { get; set; }
         public string DesignedBy { get; set; }
         public DelegateCommand CreateCommand { get; }
 
@@ -46,6 +46,7 @@ namespace RevitAPITraining_SheetsCreator
                     ViewSheet vs = ViewSheet.Create(_doc, SelectedTitleBlockType.Id);
                     if (SelectedView != null)
                     {
+                        ElementId duplicatedPlanId = SelectedView.Duplicate(ViewDuplicateOption.Duplicate);
                         UV location = new UV((vs.Outline.Max.U - vs.Outline.Min.U) / 2,
                                              (vs.Outline.Max.V - vs.Outline.Min.V) / 2);
                         Viewport.Create(_doc, vs.Id, SelectedView.Id, new XYZ(location.U, location.V, 0));
@@ -74,6 +75,7 @@ namespace RevitAPITraining_SheetsCreator
         {
             return new FilteredElementCollector(doc)
             .OfCategory(BuiltInCategory.OST_TitleBlocks)
+            .WhereElementIsNotElementType()
             .Cast<FamilySymbol>()
             .ToList();
         }
