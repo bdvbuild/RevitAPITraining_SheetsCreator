@@ -49,7 +49,7 @@ namespace RevitAPITraining_SheetsCreator
                         ElementId duplicatedPlanId = SelectedView.Duplicate(ViewDuplicateOption.Duplicate);
                         UV location = new UV((vs.Outline.Max.U - vs.Outline.Min.U) / 2,
                                              (vs.Outline.Max.V - vs.Outline.Min.V) / 2);
-                        Viewport.Create(_doc, vs.Id, SelectedView.Id, new XYZ(location.U, location.V, 0));
+                        Viewport.Create(_doc, vs.Id, duplicatedPlanId, new XYZ(location.U, location.V, 0));
                     }
                     if (DesignedBy != null)
                     {
@@ -75,7 +75,6 @@ namespace RevitAPITraining_SheetsCreator
         {
             return new FilteredElementCollector(doc)
             .OfCategory(BuiltInCategory.OST_TitleBlocks)
-            .WhereElementIsNotElementType()
             .Cast<FamilySymbol>()
             .ToList();
         }
@@ -84,6 +83,7 @@ namespace RevitAPITraining_SheetsCreator
         {
             return new FilteredElementCollector(doc)
                 .OfCategory(BuiltInCategory.OST_Views)
+            .WhereElementIsNotElementType()
                 .Cast<View>()
                 .ToList();
         }
